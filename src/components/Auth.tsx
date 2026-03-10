@@ -21,10 +21,15 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
             const response = await axios.post(
                 `${BACKEND_URL}/api/v1/user/${type}`,
                 postInputs,
-                { headers: { "Content-Type": "application/json" } } // ✅ Fix
+                { headers: { "Content-Type": "application/json" } }
             );
-            const jwt = response.data.token; // Ensure token is correctly extracted
-            localStorage.setItem("token", jwt);
+            console.log("LOGIN RESPONSE:", response.data);
+            const token = response?.data?.token;
+            if (!token) {
+                alert("Login failed. Token missing.");
+                return;
+            }
+            localStorage.setItem("token", token);
             navigate("/blogs");
         } catch (e) {
             console.error("Error:", e);
@@ -61,7 +66,7 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
             <LabelInput
                 label="Password"
-                inputType="Password"
+                inputType="password"
                 placeholder="Enter your password"
                 onChange={(e) => setPostInputs(c => ({ ...c, password: e.target.value }))}
             />
