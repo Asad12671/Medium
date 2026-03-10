@@ -36,7 +36,7 @@ export const Blogs = () => {
                             <Blogcard
                                 key={index}
                                 id={blog.id}
-                                authorName={blog?.author?.name || "Unknown"}
+                                authorName={blog?.author?.name || "Author"}
                                 title={blog?.title || "No Title"}
                                 content={blog?.content || "No Content Available"}
                                 publishDate={"10 Feb 2025"}
